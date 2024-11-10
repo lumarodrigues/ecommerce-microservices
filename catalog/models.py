@@ -53,7 +53,7 @@ class Product(Document):
 
     def save(self, *args, **kwargs):
         """Override save method to update 'updated_at' field."""
-        self.updated_at = datetime.utcnow()  # Atualiza a data de atualização
+        self.updated_at = datetime.utcnow()
         super().save(*args, **kwargs)
 
     def __str__(self):
