@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from mongoengine import connect
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)ad(d8_yl&#&6mygoq-m-7_g$5ekr47n9@3(#py4%rhzelc6an'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,17 +47,19 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # URL React frontend
+    os.getenv("FRONTEND_URL", "http://localhost:3000")
 ]
+
 
 ROOT_URLCONF = 'ecommerce.urls'
 
@@ -90,11 +93,12 @@ DATABASES = {
 }
 
 connect(
-    db='ecommerce_db',
-    username='ecommerce',
-    password='fIJkTazk1r72',
-    host='mongodb://localhost:27017/ecommerce_db',
-    authentication_source='ecommerce_db'
+    db = os.getenv("MONGO_DB"),
+    username = os.getenv("MONGO_USERNAME"),
+    password = os.getenv("MONGO_PASSWORD"),
+    host = os.getenv("MONGO_HOST"),
+    authentication_source = os.getenv("MONGO_AUTH_SOURCE"),
+    authSource = os.getenv("MONGO_AUTH_SOURCE"),
 )
 
 
