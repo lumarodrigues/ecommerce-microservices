@@ -92,14 +92,17 @@ DATABASES = {
     }
 }
 
+from decouple import config
+
 connect(
-    db = os.getenv("MONGO_DB"),
-    username = os.getenv("MONGO_USERNAME"),
-    password = os.getenv("MONGO_PASSWORD"),
-    host = os.getenv("MONGO_HOST"),
-    authentication_source = os.getenv("MONGO_AUTH_SOURCE"),
-    authSource = os.getenv("MONGO_AUTH_SOURCE"),
+    db=config('MONGO_DB_NAME'),
+    username=config('MONGO_DB_USERNAME'),
+    password=config('MONGO_DB_PASSWORD'),
+    host=config('MONGO_DB_HOST'),
+    authentication_source=config('MONGO_DB_AUTH_SOURCE'),
+    authSource=config('MONGO_DB_AUTH_SOURCE'),
 )
+
 
 
 

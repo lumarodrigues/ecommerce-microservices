@@ -1,8 +1,0 @@
-Django==4.1.13
-mongoengine==0.29.1
-pymongo==4.10.1
-djangorestframework==3.14.0
-dnspython==2.3.0
-pytz==2024.2
-six==1.16.0
-sqlparse==0.2.4
