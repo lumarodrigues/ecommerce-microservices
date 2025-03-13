@@ -10,6 +10,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+    networks:
+      - ecommerce_network
 
   web:
     build: .
@@ -30,6 +32,12 @@ services:
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - SECRET_KEY=${SECRET_KEY}
     restart: always
+    networks:
+      - ecommerce_network
 
 volumes:
   mongo_data:
+
+networks:
+  ecommerce_network:
+    driver: bridge
